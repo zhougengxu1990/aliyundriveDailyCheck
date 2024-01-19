@@ -128,7 +128,7 @@ function sign_in(access_token, remarks) {
  * 获取未领取的奖励
  * @param {签到返回的result.signInInfos} signInInfos 
  */
-function filter_unget_rewards(signInInfos) {
+function filter_unget_rewards(signInInfos, signInCount) {
     var rewards;
     var reward_signin = []
     var reward_task = []
@@ -136,19 +136,22 @@ function filter_unget_rewards(signInInfos) {
     for (info in signInInfos) {
 
         rewards = info.rewards;
-        for (reward in rewards) {
-            reward.day = info.day;//保存一下是第几天，领取奖励时会用到。
-            if ('dailySignIn' === reward.type && 'verification' != reward.status) {
-                reward_signin.push(reward);
-            }
-            else if ('dailyTask' === reward.type) {
-                if ('finished' === reward.status) {
-                    reward_task.push(reward)//一定要完成的task才能领取奖励
-                } else {
-                    reward_task_unfinished.push(reward)
+        if (info.day <= signInCount) {//只取签到当天及其以前的rewards数据
+            for (reward in rewards) {
+                reward.day = info.day;//保存一下是第几天，领取奖励时会用到。
+                if ('dailySignIn' === reward.type && 'verification' != reward.status) {
+                    reward_signin.push(reward);
+                }
+                else if ('dailyTask' === reward.type) {
+                    if ('finished' === reward.status) {
+                        reward_task.push(reward)//一定要完成的task才能领取奖励
+                    } else {
+                        reward_task_unfinished.push(reward)
+                    }
                 }
             }
         }
+
     }
 
     return { reward_signin, reward_task, reward_task_unfinished };
