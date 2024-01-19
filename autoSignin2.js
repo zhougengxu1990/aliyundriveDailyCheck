@@ -55,7 +55,7 @@ function sign_in(access_token, remarks) {
             'Content-Type': 'application/json'
         }
     })
-        // .then(d => d.data)
+        .then(d => d.data)
         .then(async json => {
             if (!json.success) {
                 sendMessage.push('签到失败', json.message)
