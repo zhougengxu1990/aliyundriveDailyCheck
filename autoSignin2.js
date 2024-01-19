@@ -88,9 +88,9 @@ function sign_in(access_token, remarks) {
                         sendMessage.push(`第${signInDay}天奖励领取失败:`, e)
                     }
                 }
-            } else if (currentSignInfo.isReward) {
+            } else if ('verification' === currentSignInfo.rewards[0].status) {
                 sendMessage.push(
-                    `今日签到获得${currentSignInfo.reward.name || ''}${currentSignInfo.reward.description || ''
+                    `今日签到获得${currentSignInfo.rewards[0].name || ''}${currentSignInfo.rewards[0].description || ''
                     }`
                 )
             }
