@@ -70,11 +70,12 @@ function sign_in(access_token, remarks) {
             sendMessage.push(`本月累计签到 ${signInCount} 天`)
 
             // 未领取奖励列表
-            const { reward_signin, reward_task, reward_task_unfinished } = filter_unget_rewards(signInInfos);
+            const { reward_signin, reward_task, reward_task_unfinished } = filter_unget_rewards(signInInfos, signInCount);
 
             // 领取签到奖励
             var signInDay;
             if (reward_signin.length) {
+                sendMessage.push("开始领取签到奖励：" + reward_signin.length);
                 for await (reward of reward_signin) {
                     signInDay = reward.day;
                     try {
@@ -95,6 +96,7 @@ function sign_in(access_token, remarks) {
             }
 
             if (reward_task.length > 0) {
+                sendMessage.push("开始领取任务奖励：" + reward_task.length);
                 for await (reward of reward_task) {
                     signInDay = reward.day;
                     try {
