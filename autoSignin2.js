@@ -111,9 +111,9 @@ function sign_in(access_token, remarks) {
             }
 
             if (reward_task_unfinished.length > 0) {
-                var days = reward_task_unfinished.forEach((e) => {
-                    return e.day;
-                })
+                var days = reward_task_unfinished.map((v,i)=>{
+                    return e.day
+                });
                 sendMessage.push("第" + days.join(", ") + "日任务未完成，未能领取奖励")
             }
 
@@ -147,7 +147,9 @@ function filter_unget_rewards(signInInfos, signInCount) {
                 else if ('dailyTask' === reward.type) {
                     if ('finished' === reward.status) {
                         reward_task.push(reward)//一定要完成的task才能领取奖励
-                    } else {
+                    } else if('verification' === reward.status){
+                        
+                    } else{
                         reward_task_unfinished.push(reward)
                     }
                 }
