@@ -191,7 +191,7 @@ function getTaskReward(access_token, signInDay) {
             signInDay
         },
         headers: {
-            authorization: access_token,
+            authorization: ("Bearer " + access_token),
             'Content-Type': 'application/json'
         }
     })
