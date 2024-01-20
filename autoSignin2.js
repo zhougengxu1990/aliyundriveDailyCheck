@@ -135,11 +135,11 @@ function filter_unget_rewards(signInInfos, signInCount) {
     var reward_signin = []
     var reward_task = []
     var reward_task_unfinished = []
-    for (info in signInInfos) {
+    for (info of signInInfos) {
 
         rewards = info.rewards;
         if (info.day <= signInCount) {//只取签到当天及其以前的rewards数据
-            for (reward in rewards) {
+            for (reward of rewards) {
                 reward.day = info.day;//保存一下是第几天，领取奖励时会用到。
                 if ('dailySignIn' === reward.type && 'verification' != reward.status) {
                     reward_signin.push(reward);
@@ -191,7 +191,7 @@ function getTaskReward(access_token, signInDay) {
             signInDay
         },
         headers: {
-            authorization: ("Bearer " + access_token),
+            Authorization: ("Bearer " + access_token),
             'Content-Type': 'application/json'
         }
     })
