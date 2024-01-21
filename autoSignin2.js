@@ -112,7 +112,7 @@ function sign_in(access_token, remarks) {
 
             if (reward_task_unfinished.length > 0) {
                 var days = reward_task_unfinished.map((v,i)=>{
-                    return e.day
+                    return v.day
                 });
                 sendMessage.push("第" + days.join(", ") + "日任务未完成，未能领取奖励")
             }
